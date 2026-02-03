@@ -11,7 +11,6 @@ import { useState } from "react"
 export default function Page() {
   const [loading ,setLoadig] = useState(false);
   const [form, setForm] = useState({
-    name:"",
     email:"",
     password:""
   })
@@ -19,13 +18,13 @@ export default function Page() {
   async function HandleSubmit() {
     try{
       setLoadig(true);
-      await apiFetch("/auth/register",{
+      await apiFetch("/auth/login",{
         method:"POST",
         body:JSON.stringify(form)
       })
-      alert("Account created successfully")
+      alert("Login successful")
     }catch(err){
-      alert("Error creating account")
+      alert("Error logging in")
     }finally{
       setLoadig(false)
     }
@@ -34,19 +33,14 @@ export default function Page() {
   return <div className="flex min-h-screen items-center justify-center bg-muted">
    <Card className="w-full max-w-md">
     <CardHeader>
-          <CardTitle>Create Account</CardTitle>
-
+          <CardTitle>Login</CardTitle>
 
 
     </CardHeader>
     
    <CardContent className="space-y-4">
 
-    <div className="space-y-2">
-      <Label>Name</Label>
-      <Input placeholder="name" value={form.name} onChange={(e)=>setForm({...form,name:e.target.value})}/>
 
-    </div>
   
     <div className="space-y-2">
       <Label>Email</Label>
@@ -62,7 +56,7 @@ export default function Page() {
    </CardContent>
    <CardFooter>
 
-    <Button onClick={HandleSubmit} disabled={loading} className="w-full">{loading?"Creating...":"Register"}</Button>
+    <Button onClick={HandleSubmit} disabled={loading} className="w-full">{loading?"Logging in...":"Login"}</Button>
    </CardFooter>
 
    </Card>
